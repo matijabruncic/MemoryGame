@@ -33,7 +33,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.example.memorygame.CreateList;
-import com.example.memorygame.Main;
+import com.example.memorygame.MemoryGame;
 import com.example.memorygame.Picture;
 import org.springframework.core.io.ClassPathResource;
 
@@ -89,8 +89,9 @@ public class Frame {
         menu.add(vidi);
         menu.add(postavke);
 
-        slike.addAll(op.createList());
-        slike.addAll(op.createList());
+        List<Picture> list = op.createList();
+        slike.addAll(list);
+        slike.addAll(list);
         for (int i = 0; i < 5; i++) {
             Collections.shuffle(slike);
         }
@@ -342,7 +343,7 @@ public class Frame {
                     zavrsenih++;
                 }
             }
-            if (zavrsenih == Main.BROJ_SLIKA * 2) {
+            if (zavrsenih == PictureLoader.getPicturesSize() * 2) {
                 stop = System.currentTimeMillis();
                 new Popup();
             }
