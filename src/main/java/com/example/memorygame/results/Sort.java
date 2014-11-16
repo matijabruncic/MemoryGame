@@ -1,4 +1,4 @@
-package results;
+package com.example.memorygame.results;
 
 import java.util.Comparator;
 
