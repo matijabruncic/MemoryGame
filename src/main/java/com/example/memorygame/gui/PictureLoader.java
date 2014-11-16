@@ -1,7 +1,10 @@
 package com.example.memorygame.gui;
 
 import com.example.memorygame.Picture;
+import org.springframework.core.io.ClassPathResource;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,11 @@ public class PictureLoader {
     }
 
     public static Picture loadPicture(int id) throws IOException {
-        return new Picture(id);
+        return new Picture(id, loadPicture(id + ".jpg"));
+    }
+
+    public static ImageIcon loadPicture(String filename) throws IOException {
+        return new ImageIcon(ImageIO.read(new ClassPathResource(filename).getInputStream()));
     }
 
     public static List<Picture> loadAllPictures() throws IOException {
