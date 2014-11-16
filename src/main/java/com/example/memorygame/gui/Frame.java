@@ -33,9 +33,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.example.memorygame.CreateList;
-import com.example.memorygame.Main;
 import com.example.memorygame.Picture;
-import org.springframework.core.io.ClassPathResource;
 
 
 public class Frame {
@@ -56,7 +54,7 @@ public class Frame {
 
 
     public Frame() throws IOException {
-        pattern = new ImageIcon(new ClassPathResource("mem.png").getFile().getAbsolutePath());
+        pattern = PictureLoader.loadPicture("mem.png");
         glavniOkvir = new JFrame("Memory Game");
         glavniOkvir.setUndecorated(true);
         final Container c = glavniOkvir.getContentPane();
@@ -70,14 +68,14 @@ public class Frame {
 
         JMenuBar menu = new JMenuBar();
         JMenu file = new JMenu("Igra");
-        JMenuItem nova = new JMenuItem("Nova igra", new ImageIcon(new ClassPathResource("new.png").getFile().getAbsolutePath()));
-        JMenuItem kraj = new JMenuItem("Kraj", new ImageIcon(new ClassPathResource("close.png").getFile().getAbsolutePath()));
+        JMenuItem nova = new JMenuItem("Nova igra", PictureLoader.loadPicture("new.png"));
+        JMenuItem kraj = new JMenuItem("Kraj", PictureLoader.loadPicture("close.png"));
         JMenu controls = new JMenu("Kontrole");
-        final JMenuItem playPause = new JMenuItem("Pauziraj", new ImageIcon(new ClassPathResource("pause.png").getFile().getAbsolutePath()));
+        final JMenuItem playPause = new JMenuItem("Pauziraj", PictureLoader.loadPicture("pause.png"));
         JMenu postavke = new JMenu("Postavke");
-        JMenuItem podesavanja = new JMenuItem("Podesavanja", new ImageIcon(new ClassPathResource("pref.png").getFile().getAbsolutePath()));
+        JMenuItem podesavanja = new JMenuItem("Podesavanja", PictureLoader.loadPicture("pref.png"));
         JMenu vidi = new JMenu("Vidi");
-        JMenuItem rezultati = new JMenuItem("Rezultati", new ImageIcon(new ClassPathResource("results.png").getFile().getAbsolutePath()));
+        JMenuItem rezultati = new JMenuItem("Rezultati", PictureLoader.loadPicture("results.png"));
 
         vidi.add(rezultati);
         postavke.add(podesavanja);
@@ -89,8 +87,9 @@ public class Frame {
         menu.add(vidi);
         menu.add(postavke);
 
-        slike.addAll(op.createList());
-        slike.addAll(op.createList());
+        List<Picture> list = op.createList();
+        slike.addAll(list);
+        slike.addAll(list);
         for (int i = 0; i < 5; i++) {
             Collections.shuffle(slike);
         }
@@ -208,7 +207,7 @@ public class Frame {
                     play = false;
                     playPause.setText("Pokreni");
                     try {
-                        playPause.setIcon(new ImageIcon(new ClassPathResource("play.png").getFile().getAbsolutePath()));
+                        playPause.setIcon(PictureLoader.loadPicture("play.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -224,7 +223,7 @@ public class Frame {
                     }
                     playPause.setText("Pauziraj");
                     try {
-                        playPause.setIcon(new ImageIcon(new ClassPathResource("pause.png").getFile().getAbsolutePath()));
+                        playPause.setIcon(PictureLoader.loadPicture("pause.png"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -342,7 +341,7 @@ public class Frame {
                     zavrsenih++;
                 }
             }
-            if (zavrsenih == Main.BROJ_SLIKA * 2) {
+            if (zavrsenih == PictureLoader.getPicturesSize() * 2) {
                 stop = System.currentTimeMillis();
                 new Popup();
             }
