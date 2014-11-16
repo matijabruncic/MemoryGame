@@ -1,4 +1,6 @@
-package gui;
+package com.example.memorygame.gui;
+
+import com.example.memorygame.results.Score;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -28,8 +30,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-
-import results.Score;
 
 public class Popup {
 	private static long time;
